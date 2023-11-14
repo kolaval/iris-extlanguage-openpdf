@@ -1,0 +1,1037 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="IRIS" version="26" zv="IRIS for Windows (x86-64) 2023.2 (Build 227U)" ts="2023-11-14 16:40:20">
+<Class name="Sample.Address">
+<Description>
+Use or operation of this code is subject to acceptance of the license available in the code repository for this code.
+This is a sample embeddable class representing an address.</Description>
+<Super>%SerialObject,%Populate,%XML.Adaptor</Super>
+<TimeChanged>66792,54754.2932982</TimeChanged>
+<TimeCreated>66792,54753.5293036</TimeCreated>
+
+<Property name="Street">
+<Description>
+The street address.</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="80"/>
+<Parameter name="POPSPEC" value="Street()"/>
+</Property>
+
+<Property name="City">
+<Description>
+The city name.</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="80"/>
+<Parameter name="POPSPEC" value="City()"/>
+</Property>
+
+<Property name="State">
+<Description>
+The 2-letter state abbreviation.</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="2"/>
+<Parameter name="POPSPEC" value="USState()"/>
+</Property>
+
+<Property name="Zip">
+<Description>
+The 5-digit U.S. Zone Improvement Plan (ZIP) code.</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="5"/>
+<Parameter name="POPSPEC" value="USZip()"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Serial</Type>
+<State>AddressState</State>
+<StreamLocation>^Sample.AddressS</StreamLocation>
+<Data name="AddressState">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>Street</Value>
+</Value>
+<Value name="2">
+<Value>City</Value>
+</Value>
+<Value name="3">
+<Value>State</Value>
+</Value>
+<Value name="4">
+<Value>Zip</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="Sample.Company">
+<Description><![CDATA[
+Use or operation of this code is subject to acceptance of the license available in the code repository for this code.
+This sample persistent class represents a company.<br>]]></Description>
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeChanged>66792,55106.265115</TimeChanged>
+<TimeCreated>66792,54753.599728</TimeCreated>
+
+<Index name="NameIdx">
+<Description><![CDATA[
+Define an index for <property>Name</property>.]]></Description>
+<Type>index</Type>
+<Properties>Name</Properties>
+</Index>
+
+<Index name="TaxIDIdx">
+<Description><![CDATA[
+Define a unique index for <property>TaxID</property>.]]></Description>
+<Type>index</Type>
+<Properties>TaxID</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="Name">
+<Description>
+The company's name.</Description>
+<Type>%String</Type>
+<Required>1</Required>
+<Parameter name="MAXLEN" value="80"/>
+<Parameter name="POPSPEC" value="Company()"/>
+</Property>
+
+<Property name="Mission">
+<Description>
+The company's mission statement.</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="200"/>
+<Parameter name="POPSPEC" value="Mission()"/>
+</Property>
+
+<Property name="TaxID">
+<Description>
+The unique Tax ID number for the company.</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Revenue">
+<Description>
+The last reported revenue for the company.</Description>
+<Type>%Integer</Type>
+</Property>
+
+<Property name="Employees">
+<Description><![CDATA[
+The <class>Employee</class> objects associated with this <class>Company</class>.]]></Description>
+<Type>Employee</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Company</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DataLocation>^Sample.CompanyD</DataLocation>
+<DefaultData>CompanyDefaultData</DefaultData>
+<IdLocation>^Sample.CompanyD</IdLocation>
+<IndexLocation>^Sample.CompanyI</IndexLocation>
+<StreamLocation>^Sample.CompanyS</StreamLocation>
+<ExtentSize>5</ExtentSize>
+<Data name="CompanyDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>Mission</Value>
+</Value>
+<Value name="4">
+<Value>TaxID</Value>
+</Value>
+<Value name="5">
+<Value>Revenue</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>2</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>3</AverageFieldSize>
+</Property>
+<Property name="Mission">
+<Selectivity>20.0000%</Selectivity>
+<AverageFieldSize>98.8</AverageFieldSize>
+</Property>
+<Property name="Name">
+<Selectivity>20.0000%</Selectivity>
+<AverageFieldSize>18.6</AverageFieldSize>
+</Property>
+<Property name="Revenue">
+<Selectivity>20.0000%</Selectivity>
+<AverageFieldSize>6</AverageFieldSize>
+</Property>
+<Property name="TaxID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>7</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="NameIdx">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="TaxIDIdx">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="Sample.Customer">
+<Description>
+Use or operation of this code is subject to acceptance of the license available in the code repository for this code.</Description>
+<Super>%SerialObject</Super>
+<TimeChanged>66792,54754.3615479</TimeChanged>
+<TimeCreated>66792,54753.6979399</TimeCreated>
+
+<Property name="Name">
+<Type>%String</Type>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="MailingAddresses">
+<Type>Address</Type>
+<Collection>list</Collection>
+<Parameter name="JAVATYPE" value="java.util.List"/>
+</Property>
+
+<Property name="Addresses">
+<Type>Address</Type>
+<Collection>array</Collection>
+<Parameter name="JAVATYPE" value="java.util.Map"/>
+</Property>
+
+<Property name="MyAddress">
+<Type>Address</Type>
+</Property>
+
+<Property name="Status">
+<Type>%String</Type>
+<Parameter name="TRUNCATE" value="1"/>
+</Property>
+
+<Property name="TS">
+<Type>%TimeStamp</Type>
+</Property>
+
+<Method name="%OnNew">
+<Description><![CDATA[
+This callback method is invoked by the <METHOD>%New</METHOD> method to 
+provide notification that a new instance of an object is being created.
+
+<P>If this method returns an error then the object will not be created.]]></Description>
+<FormalSpec>initvalue:%CacheString</FormalSpec>
+<Private>1</Private>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	do ..SetDefault()
+	quit $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="SetDefault">
+<Implementation><![CDATA[
+	do ..MailingAddresses.Clear()
+	do ..Addresses.Clear()
+	
+	set l = $listbuild("One Memorial Dr.","Cambridge","MA","02142")
+	set l1 = $listbuild(l,"Sample.Address")
+	set a = ##class(Sample.Address).%Open(l1)
+	do ..MailingAddresses.Insert(a)
+	
+	set l = $listbuild("768 Beacon St.","Brookline","MA","02446")
+	set l1 = $listbuild(l,"Sample.Address")
+	set a = ##class(Sample.Address).%Open(l1)
+	do ..MailingAddresses.Insert(a)
+	
+	set l = $listbuild("825 Third Ave.","New York","NY","10022")
+	set l1 = $listbuild(l,"Sample.Address")
+	set a = ##class(Sample.Address).%Open(l1)
+	do ..Addresses.SetAt(a, "Residence")
+	
+	set l = $listbuild("7722 Main St.","Detroit","MI","48224")
+	set l1 = $listbuild(l,"Sample.Address")
+	set a = ##class(Sample.Address).%Open(l1)
+	do ..Addresses.SetAt(a, "Business")
+	
+	set l = $listbuild("25 Glen Ave","Newton","MA","02459")
+	set l1 = $listbuild(l,"Sample.Address")
+	set a = ##class(Sample.Address).%Open(l1)
+	
+	set ..MyAddress = a
+	set ..Name = "Joe Doe, Jr."
+	set ..Status = "Prospect"
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Storage.Serial</Type>
+<State>CustomerState</State>
+<StreamLocation>^Sample.CustomerS</StreamLocation>
+<Data name="CustomerState">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>Name</Value>
+</Value>
+<Value name="2">
+<Value>MailingAddresses</Value>
+</Value>
+<Value name="3">
+<Value>Addresses</Value>
+</Value>
+<Value name="4">
+<Value>MyAddress</Value>
+</Value>
+<Value name="5">
+<Value>Status</Value>
+</Value>
+<Value name="6">
+<Value>TS</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="Sample.Employee">
+<Description><![CDATA[
+Use or operation of this code is subject to acceptance of the license available in the code repository for this code.
+This sample persistent class represents an employee.<br>]]></Description>
+<Super>Person</Super>
+<TimeChanged>66792,55146.8837319</TimeChanged>
+<TimeCreated>66792,54753.7535658</TimeCreated>
+
+<Property name="Title">
+<Description>
+The employee's job title.</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="50"/>
+<Parameter name="POPSPEC" value="Title()"/>
+</Property>
+
+<Property name="Salary">
+<Description>
+The employee's current salary.</Description>
+<Type>%Integer</Type>
+<Parameter name="MAXVAL" value="100000"/>
+<Parameter name="MINVAL" value="0"/>
+</Property>
+
+<Property name="Notes">
+<Description>
+A character stream containing notes about this employee.</Description>
+<Type>%Stream.GlobalCharacter</Type>
+</Property>
+
+<Property name="Picture">
+<Description>
+A picture of the employee</Description>
+<Type>%Stream.GlobalBinary</Type>
+</Property>
+
+<Property name="Company">
+<Description>
+The company this employee works for.</Description>
+<Type>Company</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Employees</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Method name="WritePicture">
+<Description>
+Writes a .png file containing the picture, if any, of this employee
+the purpose of this method is to prove that Picture really contains an image</Description>
+<Implementation><![CDATA[
+	if (..Picture="") {quit}
+	set name=$TR(..Name,".") ; strip off trailing period
+	set name=$TR(name,", ","__") ; replace commas and spaces
+	set filename=name_".png"
+	
+	set file=##class(%Stream.FileBinary).%New()
+	set file.Filename=filename
+	do file.CopyFrom(..Picture)
+	do file.%Save()
+	write !, "Generated file: "_filename
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DefaultData>EmployeeDefaultData</DefaultData>
+<ExtentSize>30</ExtentSize>
+<Data name="EmployeeDefaultData">
+<Structure>listnode</Structure>
+<Subscript>"Employee"</Subscript>
+<Value name="1">
+<Value>Title</Value>
+</Value>
+<Value name="2">
+<Value>Salary</Value>
+</Value>
+<Value name="3">
+<Value>Notes</Value>
+</Value>
+<Value name="4">
+<Value>Picture</Value>
+</Value>
+<Value name="5">
+<Value>Company</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>19</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb("~Sample.Employee~","~Sample.Employee~","~Sample.Employee~","~Sample.Employee~","~Sample.Employee~","~Sample.Employee~","~Sample.Employee~","~Sample.Employee~","~Sample.Employee~","~Sample.Employee~","~Sample.Employee~","~Sample.Employee~","~Sample.Employee~","~Sample.Employee~","~Sample.Employee~","~Sample.Employee~"),$lb(18,18,18,18,18,18,18,18,18,18,18,18,18,18,18),$lb(2119393645,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2119393645))</Histogram>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>3</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,1,0,$lb(1,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30),$lb(0,0,0,0,0,1,1,1,1,0,1,1,1,1,0),$lb(822083584,822083584,838860800,838860800,872415232,872415232,905969664,905969664,939524096,939524096,825229312,805306368,838860800,838860800,872415232,872415232,905969664,905969664,939524096,825753600,842006528,805306368,838860800,838860800,872415232,872415232,905969664,905969664,939524096,842530816,858783744,858783744))</Histogram>
+</Property>
+<Property name="Age">
+<Selectivity>3.7037%</Selectivity>
+<AverageFieldSize>3</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,1,0,$lb(6,6,13,18,22,31,34,40,43,56,57,65,80,84,89,96),$lb(1,0,1,0,0,1,0,1,0,1,0,0,1,1,0),$lb(905969664,0,0,905969664,825425920,855638016,939524096,825753600,842137600,842137600,858849280,822083584,872415232,859045888,875560960,805306368,855638016,875757568,892731392,905969664,922746880,892796928,909443072,909443072,942669824,805306368,872415232,872415232,956301312,943259648,959840256,959840256))</Histogram>
+</Property>
+<Property name="Company">
+<Selectivity>20.0000%</Selectivity>
+<AverageFieldSize>3</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,1,0,$lb(1,1,1,2,2,2,2,2,2,3,3,4,4,4,5,5),$lb(1,1,0,1,1,1,1,1,0,1,0,1,1,0,1),$lb(822083584,0,0,0,0,822083584,838860800,0,0,0,0,0,0,0,0,0,0,838860800,855638016,0,0,855638016,872415232,0,0,0,0,872415232,889192448,0,0,889192448))</Histogram>
+</Property>
+<Property name="DOB">
+<Selectivity>3.3333%</Selectivity>
+<AverageFieldSize>4</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,1,0,$lb(31615,31689,34627,36327,37791,45388,45976,49240,51668,53761,54608,55535,59687,60554,63289,64598),$lb(3,1,1,1,0,2,1,0,1,1,1,1,0,1,1),$lb(858863153,825556992,943259648,825636921,875967031,875967031,909324855,909324855,926366001,859256633,875901752,859322368,959919616,892942134,959591472,876163636,892417590,825636408,859256369,859256369,875966520,875966520,892678965,892678965,959854647,892941880,909129013,808793396,858929209,858929209,875903288,909391161))</Histogram>
+</Property>
+<Property name="FavoriteColors">
+<Selectivity>4.5833%</Selectivity>
+<OutlierSelectivity>.266667:</OutlierSelectivity>
+<AverageFieldSize>10</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,5,$lb("-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000",$lb("Red","Purple"),$lb("Red","Yellow"),$lb("Blue","Yellow"),$lb("Black","White"),$lb("Black","Yellow"),$lb("Green"),$lb("White"),$lb("White"),$lb("Orange","White"),$lb("Purple"),$lb("Yellow")),$lb(21,21,21,21,0,11,5,7,13,5,5,12,5,5,5),$lb(758198320,0,0,0,0,0,0,0,0,758198320,83972709,1818558464,1870069760,134306149,1695023449,22635884,117528424,1694498816,1870069760,1667958785,1701707776,1701707776,1952776192,0,0,1952776192,1852269831,1852269831,1886151936,1886151936,1819244288,134306149))</Histogram>
+</Property>
+<Property name="Home">
+<Selectivity>3.3333%,City:5.8824%,State:4.0000%,Street:3.3333%,Zip:3.3333%</Selectivity>
+<AverageFieldSize>37.6,City:8.57,State:4,Street:18.67,Zip:4.37</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb($lb("7780 Ash Blvd","Miami","NE",84138),$lb("4147 Ash Drive","Washington","IL",60043),$lb("6593 Elm Drive","Miami","MN",63333),$lb("2172 Elm Avenue","Xavier","NY",18135),$lb("3783 Oak Avenue","Chicago","MN",16217),$lb("5007 Main Drive","Boston","MO",46617),$lb("8549 Oak Street","Chicago","WA",89065),$lb("1230 Maple Place","Oak Creek","WY",50537),$lb("1410 Madison Blvd","Newton","CA",50933),$lb("7958 Second Drive","Denver","TN",10743),$lb("4116 Second Street","Queensbury","WI",92299),$lb("7431 Clinton Place","Bensonhurst","SD",65030),$lb("3423 Franklin Drive","Chicago","DE",21243),$lb("5021 Madison Street","Newton","CT",60808),$lb("2088 Washington Blvd","Ukiah","NC",71043),$lb("5111 Washington Drive","Chicago","WY",82410)),$lb(5,5,5,5,5,5,5,6,5,5,5,5,5,5,5),$lb(251737911,807420275,924860787,924860787,857752940,857752940,840975724,840975724,857755489,857755489,924863841,924863841,958418785,958418785,807423329,541942128,541942116,807423329,941642597,941642597,908088165,908088165,824197996,824197996,857753202,857753202,824200545,824200545,941643617,941643617,824203105,385955121)),City:$lb(.06666666666666666667,0,0,$lb(" BENSONHURST"," BOSTON"," CHICAGO"," CHICAGO"," CHICAGO"," FARGO"," HIALEAH"," MIAMI"," MIAMI"," NEWTON"," OAK CREEK"," QUEENSBURY"," TAMPA"," UKIAH"," WASHINGTON"," YOUNGSTOWN"),$lb(2,1,9,9,1,1,1,7,1,1,1,1,1,1,1),$lb(541214030,1162761039,1330861135,1112494932,1128810819,0,0,0,0,1128810819,1178686023,1178686023,1212760396,1212760396,1296646477,0,0,1296646477,1313167188,1313167188,1329679136,1329679136,1364542789,1364542789,1413565776,1413565776,1430997313,1430997313,1463898952,1463898952,1498371406,542723925)),State:$lb(.06666666666666666667,0,0,$lb(" AK"," AR"," CA"," CT"," HI"," IL"," LA"," MN"," MN"," NC"," NJ"," NY"," SD"," WA"," WY"," WY"),$lb(2,1,2,1,1,1,1,4,1,2,2,1,1,2,4),$lb(541149952,1258291200,1375731712,1095892992,1128333312,1090519040,1409286144,1129578496,1212743680,1212743680,1229717504,1229717504,1279328256,1279328256,1296957440,0,0,1296957440,1313013760,1124073472,1241513984,1241513984,1493172224,1314455552,1396965376,1396965376,1463877632,1090519040,1493172224,0,0,542595328)),Street:$lb(.06666666666666666667,0,0,$lb(" 1230 MAPLE PLACE"," 1410 MADISON BLVD"," 2088 WASHINGTON BLVD"," 2175 FIRST STREET"," 3423 FRANKLIN DRIVE"," 3945 MADISON PLACE"," 4116 SECOND STREET"," 4819 FIRST DRIVE"," 4906 CLINTON STREET"," 5021 MADISON STREET"," 5211 FRANKLIN BLVD"," 6593 ELM DRIVE"," 7647 ELM STREET"," 7958 SECOND DRIVE"," 8036 CLINTON PLACE"," 9056 FIRST BLVD"),$lb(2,1,2,1,2,1,2,2,1,2,1,1,2,1,1),$lb(540095027,842215456,875638816,825504048,842020920,808990752,825701664,842086197,859058739,875705120,959722784,859386933,875639094,825308704,942749984,942749984,959460896,876163126,892351025,808595744,842084640,892481841,909457715,909457715,926299191,909391648,959789088,926496056,942682934,942682934,959460662,540618805)),Zip:$lb(.06666666666666666667,0,0,$lb(" 10743"," 16217"," 19214"," 21243"," 35463"," 46617"," 50933"," 53933"," 60043"," 63333"," 71043"," 77626"," 81156"," 82796"," 89065"," 92299"),$lb(2,2,1,1,1,1,2,1,2,1,2,1,2,2,1),$lb(540094519,808924211,909259063,909259063,959590708,825831985,842084916,842084916,859124790,859124790,875968049,875968049,892352819,809055027,859386675,892549427,909127732,808465459,858993459,909325107,925970484,825242675,926298678,926365234,942747957,825308470,842479926,842479926,959460917,943271990,959590969,540619314))</Histogram>
+</Property>
+<Property name="Name">
+<Selectivity>3.3333%</Selectivity>
+<AverageFieldSize>17.57</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" ALLEN,VALERY A."," AVERY,RHONDA C."," DELILLO,PHIL O."," ENO,BART P."," FIVES,MAUREEN M."," IRONHORSE,MARK P."," JACKSON,NATASHA D."," JONES,BELINDA K."," KLAUSNER,LOLA S."," NOODLEMAN,CHRIS C."," QUIGLEY,BARB W."," RAVAZZOLO,SUSAN N."," SCHULTE,JOHN T."," SMYTH,MOLLY N."," VONNEGUT,ALVIN A."," YANCIK,NATALIYA L."),$lb(2,1,1,1,1,1,2,1,1,1,1,1,2,1,1),$lb(541150284,1280066894,1447383641,1096172882,1145392201,1145392201,1162759980,1162759980,1179211333,1179211333,1230131022,1230131022,1245791051,1094929235,1330529619,1246711365,1263288661,1263288661,1313820484,1313820484,1364543815,1364543815,1380013633,1380013633,1396918357,1128813900,1297699912,1397578068,1448037966,1448037966,1497452099,542720334))</Histogram>
+</Property>
+<Property name="Notes">
+<Selectivity>100.0000%</Selectivity>
+<Histogram>$lb(.06666666666666666667,1,16,$lb(-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000),$lb(21,21,21,21,21,21,21,21,21,21,21,21,21,21,21),$lb(758198320,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,758198320))</Histogram>
+</Property>
+<Property name="Office">
+<Selectivity>3.3333%,City:5.0000%,State:4.3478%,Street:3.3333%,Zip:3.3333%</Selectivity>
+<AverageFieldSize>38.3,City:9.07,State:4,Street:19.07,Zip:4.17</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb($lb("9257 Elm Blvd","Newton","GA",21143),$lb("2903 Ash Court","Hialeah","IA",36511),$lb("5850 Main Blvd","Xavier","ND",24731),$lb("4359 Maple Blvd","Denver","UT",23587),$lb("7032 Main Drive","St Louis","KS",98564),$lb("3293 Main Avenue","Jackson","AZ",13952),$lb("4427 Second Blvd","Larchmont","CO",85702),$lb("5059 Maple Place","Reston","WY",31149),$lb("2063 Maple Street","Jackson","WV",27436),$lb("5467 First Street","Bensonhurst","CO",55526),$lb("2954 Franklin Place","Chicago","MT",10684),$lb("5260 Franklin Court","Washington","ME",41262),$lb("6348 Franklin Place","Zanesville","RI",23805),$lb("1732 Franklin Street","St Louis","ID",73657),$lb("2468 Washington Place","Albany","LA",84967),$lb("4569 Washington Street","Miami","WI",49405)),$lb(5,5,5,5,5,5,5,5,5,5,5,5,5,5,5),$lb(251738418,924861804,857751923,857751923,807423329,807423329,958418273,958418273,840977761,840977761,857754977,857754977,924865381,924865381,958418273,958418273,857754977,857754977,924862057,924862057,874530418,874530418,807421554,807421554,941639282,941639282,840975986,840975986,941643617,941643617,958420833,402732085)),City:$lb(.06666666666666666667,0,0,$lb(" ALBANY"," ALBANY"," BENSONHURST"," DENVER"," FARGO"," HIALEAH"," JACKSON"," JACKSON"," LARCHMONT"," MIAMI"," NEWTON"," RESTON"," ST LOUIS"," VAIL"," XAVIER"," ZANESVILLE"),$lb(8,1,1,1,1,1,9,1,1,1,1,1,1,1,1),$lb(541150274,0,0,1095516737,1111838291,1111838291,1145392726,1145392726,1178686023,1178686023,1212760396,1212760396,1245791051,0,0,1245791051,1279349315,1279349315,1296646477,1296646477,1313167188,1313167188,1380275028,1380275028,1398022220,1398022220,1447119180,1447119180,1480676937,1480676937,1514229317,542785870)),State:$lb(.06666666666666666667,0,0,$lb(" AK"," AK"," CO"," GA"," IA"," IL"," KS"," LA"," MA"," MT"," NE"," RI"," TX"," UT"," WV"," WY"),$lb(4,1,1,1,2,1,1,1,2,1,1,1,1,1,2),$lb(541149952,0,0,1095434240,1129250816,1129250816,1195442176,1195442176,1228996608,1090519040,1275068416,1229717504,1263730688,1263730688,1279328256,1279328256,1296105472,1090519040,1409286144,1297350656,1313144832,1313144832,1380515840,1380515840,1415053312,1415053312,1431568384,1431568384,1465253888,1442840576,1493172224,542595328)),Street:$lb(.06666666666666666667,0,0,$lb(" 1563 SECOND BLVD"," 1732 FRANKLIN STREET"," 2468 WASHINGTON PLACE"," 2954 FRANKLIN PLACE"," 3906 MAPLE STREET"," 4234 FRANKLIN COURT"," 436 WASHINGTON COURT"," 4569 WASHINGTON STREET"," 482 ELM AVENUE"," 5260 FRANKLIN COURT"," 5555 MADISON AVENUE"," 5850 MAIN BLVD"," 6416 ELM AVENUE"," 706 FRANKLIN STREET"," 8439 WASHINGTON PLACE"," 982 MAIN COURT"),$lb(2,1,2,1,1,2,2,2,1,2,2,1,1,1,1),$lb(540095798,892744480,926102048,825701170,842282552,875968544,959788064,842609972,859385910,859385910,875705140,842216480,859185239,859185239,892746016,892746016,942809157,876098080,892483120,842412064,892679456,892679456,943009824,892876080,909390134,909390134,925906464,925906464,942945081,942945081,959984160,540620850)),Zip:$lb(.06666666666666666667,0,0,$lb(" 10320"," 10684"," 17505"," 21143"," 23805"," 24731"," 27510"," 33458"," 34644"," 37469"," 40443"," 41845"," 55526"," 73657"," 85702"," 98564"),$lb(3,2,1,2,2,2,1,2,2,1,2,1,1,1,1),$lb(540094515,858927104,909652992,808859700,926232629,825701680,842084660,825308211,859320373,859320373,876032817,876032817,926232880,842478897,858993717,859059512,875967540,875967540,926168633,859255862,875574324,808727603,825766965,875640884,892679474,892679474,926103093,926103093,943011632,943011632,959984950,540620853))</Histogram>
+</Property>
+<Property name="Picture">
+<Selectivity>100.0000%</Selectivity>
+<Histogram>$lb(.06666666666666666667,1,16,$lb(-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000),$lb(21,21,21,21,21,21,21,21,21,21,21,21,21,21,21),$lb(758198320,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,758198320))</Histogram>
+</Property>
+<Property name="SSN">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>13</AverageFieldSize>
+</Property>
+<Property name="Salary">
+<Selectivity>3.3333%</Selectivity>
+<AverageFieldSize>4.4</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,1,0,$lb(1089,4318,30346,33306,36067,40245,48966,58028,59597,62430,71894,75430,81464,86395,92292,97869),$lb(0,0,1,1,0,1,0,1,0,0,1,0,1,0,1),$lb(825243705,825243705,875770168,875770168,858796852,808662070,858992694,858992694,909129271,859189302,875573812,808596533,943273526,876099894,892874802,942682680,959789367,892941625,909259827,909259827,925972537,825768244,892613424,926233651,942748726,825505332,909326645,943076153,959590969,842152242,926430777,959920182))</Histogram>
+</Property>
+<Property name="Spouse">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>2.77</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,1,6,$lb(-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,2,2,3,4,5,7,8,9,10,10),$lb(21,21,21,21,21,0,1,0,0,0,0,0,0,0,2),$lb(758198320,0,0,0,0,0,0,0,0,0,0,758198320,838860800,0,0,838860800,855638016,855638016,872415232,872415232,889192448,889192448,922746880,922746880,939524096,939524096,956301312,956301312,825229312,0,0,825229312))</Histogram>
+</Property>
+<Property name="Title">
+<Selectivity>3.4483%</Selectivity>
+<AverageFieldSize>22.33</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" ACCOUNTS REP."," ASSISTANT DEVELOPER"," ASSOCIATE DEVELOPER"," ASSOCIATE HYGIENIST"," EXECUTIVE ENGINEER"," EXECUTIVE MARKETING MANAGER"," GLOBAL ACCOUNTS REP."," GLOBAL PRODUCT SPECIALIST"," GLOBAL TECHNICIAN"," LABORATORY SALES REP."," LABORATORY TECHNICIAN"," SENIOR DEVELOPER"," SENIOR ENGINEER"," SENIOR RESOURCES DIRECTOR"," STRATEGIC ENGINEER"," TECHNICIAN"),$lb(2,4,11,1,11,1,8,8,1,12,1,8,8,2,1),$lb(541147971,1128484693,1397967187,1230197825,1329809729,1145394757,1213810505,1095979855,1163412803,1162757961,1296126539,1163412803,1196183362,1094927183,1347571524,1347571524,1413825352,1196183362,1279345231,1396788293,1413825352,1279345231,1397050953,1145394757,1162757961,1162757961,1380275023,1162758479,1414676820,1398035009,1413825352,542393667))</Histogram>
+</Property>
+<SQLMap name="$Employee">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="Sample.Person">
+<Description>
+Use or operation of this code is subject to acceptance of the license available in the code repository for this code.
+This sample persistent class represents a person.</Description>
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeChanged>66792,54754.3786407</TimeChanged>
+<TimeCreated>66792,54753.8584554</TimeCreated>
+
+<Parameter name="EXTENTQUERYSPEC">
+<Default>Name,SSN,Home.City,Home.State</Default>
+</Parameter>
+
+<Index name="SSNKey">
+<Description><![CDATA[
+Define a unique index for <property>SSN</property>.]]></Description>
+<Type>index</Type>
+<Properties>SSN</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Index name="NameIDX">
+<Description><![CDATA[
+Define an index for <property>Name</property>.]]></Description>
+<Data>Name</Data>
+<Properties>Name</Properties>
+</Index>
+
+<Index name="ZipCode">
+<Description><![CDATA[
+Define an index for embedded object property <b>ZipCode</b>.]]></Description>
+<Type>bitmap</Type>
+<Properties>Home.Zip</Properties>
+</Index>
+
+<Property name="Name">
+<Description>
+Person's name.</Description>
+<Type>%String</Type>
+<Required>1</Required>
+<Parameter name="POPSPEC" value="Name()"/>
+</Property>
+
+<Property name="SSN">
+<Description>
+Person's Social Security number. This is validated using pattern match.</Description>
+<Type>%String</Type>
+<Required>1</Required>
+<Parameter name="PATTERN" value="3N1&quot;-&quot;2N1&quot;-&quot;4N"/>
+</Property>
+
+<Property name="DOB">
+<Description>
+Person's Date of Birth.</Description>
+<Type>%Date</Type>
+<Parameter name="POPSPEC" value="Date()"/>
+</Property>
+
+<Property name="Home">
+<Description>
+Person's home address. This uses an embedded object.</Description>
+<Type>Address</Type>
+</Property>
+
+<Property name="Office">
+<Description>
+Person's office address. This uses an embedded object.</Description>
+<Type>Address</Type>
+</Property>
+
+<Property name="Spouse">
+<Description>
+Person's spouse. This is a reference to another persistent object.</Description>
+<Type>Person</Type>
+</Property>
+
+<Property name="FavoriteColors">
+<Description>
+A collection of strings representing the person's favorite colors.</Description>
+<Type>%String</Type>
+<Collection>list</Collection>
+<Parameter name="JAVATYPE" value="java.util.List"/>
+<Parameter name="POPSPEC" value="ValueList(&quot;,Red,Orange,Yellow,Green,Blue,Purple,Black,White&quot;):2"/>
+</Property>
+
+<Property name="Age">
+<Description><![CDATA[
+Person's age.<br>
+This is a calculated field whose value is derived from <property>DOB</property>.]]></Description>
+<Type>%Integer</Type>
+<Calculated>1</Calculated>
+<SqlComputeCode> Set {Age}=##class(Sample.Person).CurrentAge({DOB})
+</SqlComputeCode>
+<SqlComputed>1</SqlComputed>
+<SqlComputeOnChange>DOB</SqlComputeOnChange>
+</Property>
+
+<Method name="CurrentAge">
+<Description><![CDATA[
+This class method calculates a current age given a date of birth <var>date</var>.
+This method is used by the Age calculated field.]]></Description>
+<ClassMethod>1</ClassMethod>
+<CodeMode>expression</CodeMode>
+<FormalSpec>date:%Date=""</FormalSpec>
+<ReturnType>%Integer</ReturnType>
+<Implementation><![CDATA[$Select(date="":"",1:($ZD($H,8)-$ZD(date,8)\10000))
+]]></Implementation>
+</Method>
+
+<Query name="ByName">
+<Description><![CDATA[
+A sample class query that defines a result set that returns Person data 
+ordered by <property>Name</property>.<br>
+This query can be used within another method (using 
+dynamic SQL), or it can be used from Java.<br>
+This query is also accessible from JDBC and/or ODBC as the SQL stored procedure 
+<b>SP_Sample_By_Name</b>.]]></Description>
+<Type>%SQLQuery</Type>
+<FormalSpec>name:%String=""</FormalSpec>
+<SqlName>SP_Sample_By_Name</SqlName>
+<SqlProc>1</SqlProc>
+<SqlQuery>SELECT ID, Name, DOB, SSN
+FROM Sample.Person
+WHERE (Name %STARTSWITH :name)
+ORDER BY Name</SqlQuery>
+<Parameter name="CONTAINID" value="1"/>
+<Parameter name="SELECTMODE" value="RUNTIME"/>
+</Query>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DataLocation>^Sample.PersonD</DataLocation>
+<DefaultData>PersonDefaultData</DefaultData>
+<IdLocation>^Sample.PersonD</IdLocation>
+<IndexLocation>^Sample.PersonI</IndexLocation>
+<StreamLocation>^Sample.PersonS</StreamLocation>
+<Data name="PersonDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>SSN</Value>
+</Value>
+<Value name="4">
+<Value>DOB</Value>
+</Value>
+<Value name="5">
+<Value>Home</Value>
+</Value>
+<Value name="6">
+<Value>Office</Value>
+</Value>
+<Value name="7">
+<Value>Spouse</Value>
+</Value>
+<Value name="8">
+<Value>FavoriteColors</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="Sample.Report">
+<Abstract>1</Abstract>
+<TimeChanged>66792,59692.6427049</TimeChanged>
+<TimeCreated>66792,55450.8150977</TimeCreated>
+
+<Method name="GenerateReport">
+<Description>
+d ##class(Sample.Report).GenerateReport()</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Try{
+		#;Setup your classpath
+		Set ClassPath=##class(%ListOfDataTypes).%New()
+		d ClassPath.Insert("C:\IRIS\CSP\user\pdf\lib\gson-2.8.2.jar")
+		d ClassPath.Insert("C:\IRIS\CSP\user\pdf\lib\openpdf-1.3.32.jar")
+		d ClassPath.Insert("C:\IRIS\CSP\user\pdf\")
+		
+		Set PdfData={}
+		Set PdfData.Companies=[]
+		Set PreviousCompanyName=""
+		&sql(DECLARE c1 CURSOR FOR SELECT Company->Name, Name, Title INTO :CompanyName,:Name,:Title 
+		FROM Sample.Employee ORDER BY Company->Name)
+		&sql(OPEN c1)
+		for
+		{
+			&sql(FETCH c1)
+			q:(SQLCODE'=0)
+			if (PreviousCompanyName'=CompanyName){
+				if (PreviousCompanyName'=""){
+					d PdfData.Companies.%Push(Company)		
+				}
+				
+				Set Company={}
+				Set Company.Name=CompanyName
+				Set Company.Employees=[]
+				Set PreviousCompanyName=CompanyName
+			}
+			
+			Set Employee={}
+			Set Employee.Name=Name
+			Set Employee.Title=Title
+			d Company.Employees.%Push(Employee)
+		}
+		
+		if (PreviousCompanyName'=""){
+			d PdfData.Companies.%Push(Company)		
+		}
+
+		&sql(CLOSE c1)
+		
+		//w PdfData.%ToJSON()
+		
+		s Response = ##class(%Net.Remote.Java.JavaGateway).%RemoteService("127.0.0.1"
+			,1234,"test.test.ExampleOpenPdf"
+			,PdfData.%ToJSON()
+			,ClassPath)
+			
+		//Write Write the PDF to a file
+		if ($E(Response,1,10)["PDF"){
+			Set File=##class(%Stream.FileBinary).%New()
+			Set sc=File.LinkToFile("C:\IRIS\CSP\user\sample.pdf")
+			Do File.Write(Response)
+			Do File.%Save()
+			Set File=""
+			Write "PDF generated",!
+		} else {
+			Write Response,!
+		}
+		
+	}
+	catch(tException)
+	{
+		Write tException.DisplayString(),!
+	}
+	
+	q 1
+]]></Implementation>
+</Method>
+</Class>
+
+
+<Class name="Sample.Utils">
+<Description>
+Use or operation of this code is subject to acceptance of the license available in the code repository for this code.
+This class contains a method to generate data for Sample package</Description>
+<IncludeCode>%occInclude</IncludeCode>
+<TimeChanged>66792,54753.9178754</TimeChanged>
+<TimeCreated>66792,54753.9178754</TimeCreated>
+
+<Method name="Generate">
+<Description>
+Invoke this method to set up the data for these classes.
+Create one company for every five people.</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>personCount:%Integer=100</FormalSpec>
+<Implementation><![CDATA[
+    // Make sure we always have at least 1 person
+    if (personCount < 1) {
+        set personCount=1
+        }
+        
+    // Never use %KillExtent() in a real application
+    do ##class(Sample.Company).%KillExtent()
+    do ##class(Sample.Person).%KillExtent()
+    do ##class(Sample.Employee).%KillExtent()
+    //do ##class(Sample.Vendor).%KillExtent() ; doesn't work with %Storage.SQL 
+    
+    set companyCount= personCount \ 5
+    if (companyCount < 1) {
+        set companyCount=1
+        }
+
+    do ##class(Sample.Company).Populate(companyCount)
+	do ##class(Sample.Person).Populate(personCount)
+	do ##class(Sample.Employee).Populate(personCount,,,,2)
+	do ##class(Sample.Vendor).Populate(personCount)
+	
+	// Specify values for stream properties in Sample.Employee
+	// do this for the first lucky 10 employees, for reasons of space
+	
+	set e1=personCount+1 ; ID of the first employee
+	for i=e1:1:e1+9 {
+		set employee=##class(Sample.Employee).%OpenId(i)
+		set firstname=$PIECE(employee.Name,",",2)
+		set firstname=$PIECE(firstname," ",1)
+		set text=firstname_" used to work at "_##class(%PopulateUtils).Company()
+		         _" as a(n) "_##class(%PopulateUtils).Title()
+		         
+		do employee.Notes.Write(text)
+		
+		// Add a stock picture (yes, all these employees look alike)
+		do employee.Picture.Write($G(^EmployeePictures))
+		
+		do employee.%Save()
+		}
+]]></Implementation>
+</Method>
+</Class>
+
+
+<Class name="Sample.Vendor">
+<Description><![CDATA[
+Use or operation of this code is subject to acceptance of the license available in the code repository for this code.
+The Vendor class is a persistent class 
+containing vendor information.<br>
+This class demonstrates how to use the %CacheSQLStorage storage 
+class to provide custom storage for a persistent class. Typically the 
+%CacheSQLStorage storage class is used to provide object access 
+to previously existing storage structures.]]></Description>
+<SqlRowIdName>Vendor</SqlRowIdName>
+<StorageStrategy>SQLStorage</StorageStrategy>
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeChanged>66792,54753.9887166</TimeChanged>
+<TimeCreated>66792,54753.9887166</TimeCreated>
+
+<Index name="IndexNName">
+<Description>
+Name Index</Description>
+<Properties>Name</Properties>
+</Index>
+
+<Property name="Name">
+<Description>
+Vendor name.</Description>
+<Type>%String</Type>
+<Parameter name="POPSPEC" value="Company()"/>
+</Property>
+
+<Property name="Address">
+<Description>
+Vendor address.</Description>
+<Type>Address</Type>
+<Parameter name="POPSPEC" value="##class(Address).PopulateSerial()"/>
+</Property>
+
+<Property name="Contact">
+<Description>
+Name of primary vendor contact.</Description>
+<Type>%String</Type>
+<Parameter name="POPSPEC" value="Name()"/>
+</Property>
+
+<Property name="DiscRate">
+<Description>
+Discount rate.</Description>
+<Type>%Float</Type>
+<Parameter name="MAXVAL" value="100"/>
+<Parameter name="MINVAL" value="0"/>
+</Property>
+
+<Property name="DiscDays">
+<Description>
+Discount days.</Description>
+<Type>%Integer</Type>
+<Parameter name="MAXVAL" value="999"/>
+<Parameter name="MINVAL" value="0"/>
+</Property>
+
+<Property name="NetDays">
+<Description>
+Net days.</Description>
+<Type>%Integer</Type>
+<Parameter name="MAXVAL" value="999"/>
+<Parameter name="MINVAL" value="0"/>
+</Property>
+
+<Property name="DaysClear">
+<Description>
+Days clear.</Description>
+<Type>%Integer</Type>
+<Parameter name="MAXVAL" value="999"/>
+<Parameter name="MINVAL" value="0"/>
+</Property>
+
+<Property name="PayFlag">
+<Description>
+Payment Flag</Description>
+<Type>%String</Type>
+<Parameter name="DISPLAYLIST" value=",Never,Minimum"/>
+<Parameter name="VALUELIST" value=",N,M"/>
+</Property>
+
+<Property name="MinPayment">
+<Description>
+Minimum Payment.</Description>
+<Type>%Float</Type>
+<Parameter name="MAXVAL" value="999999"/>
+<Parameter name="MINVAL" value="0"/>
+</Property>
+
+<Property name="LastInvDate">
+<Description>
+Last Invoice Date.</Description>
+<Type>%Date</Type>
+<Parameter name="MAXVAL"/>
+<Parameter name="MINVAL"/>
+</Property>
+
+<Property name="LastPayDate">
+<Description>
+Last Payment Date.</Description>
+<Type>%Date</Type>
+<Parameter name="MAXVAL"/>
+<Parameter name="MINVAL"/>
+</Property>
+
+<Property name="Balance">
+<Description>
+Balance.</Description>
+<Type>%Float</Type>
+<Parameter name="MAXVAL" value="999999999"/>
+<Parameter name="MINVAL" value="-999999999"/>
+</Property>
+
+<Property name="TaxReporting">
+<Description>
+Vendor tax reporting status.</Description>
+<Type>%String</Type>
+<Parameter name="DISPLAYLIST" value=",Exempt,Required"/>
+<Parameter name="VALUELIST" value=",E,"/>
+</Property>
+
+<Storage name="SQLStorage">
+<Type>%Storage.SQL</Type>
+<SqlIdExpression>$i(^Sample.VendorD)</SqlIdExpression>
+<StreamLocation>^Sample.VendorS</StreamLocation>
+<ExtentSize>200</ExtentSize>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>2.46</AverageFieldSize>
+</Property>
+<Property name="Address">
+<Selectivity>0.5000%,City:3.8462%,State:2.0000%,Street:0.5000%,Zip:0.5000%</Selectivity>
+<AverageFieldSize>36.42,City:7.26,State:2,Street:16.75,Zip:5</AverageFieldSize>
+</Property>
+<Property name="Balance">
+<Selectivity>0.5000%</Selectivity>
+<AverageFieldSize>9.37</AverageFieldSize>
+</Property>
+<Property name="Contact">
+<Selectivity>0.5000%</Selectivity>
+<AverageFieldSize>15.99</AverageFieldSize>
+</Property>
+<Property name="DaysClear">
+<Selectivity>0.5495%</Selectivity>
+<AverageFieldSize>2.88</AverageFieldSize>
+</Property>
+<Property name="DiscDays">
+<Selectivity>0.5464%</Selectivity>
+<AverageFieldSize>2.93</AverageFieldSize>
+</Property>
+<Property name="DiscRate">
+<Selectivity>1.0753%</Selectivity>
+<AverageFieldSize>1.92</AverageFieldSize>
+</Property>
+<Property name="LastInvDate">
+<Selectivity>0.5000%</Selectivity>
+<AverageFieldSize>5</AverageFieldSize>
+</Property>
+<Property name="LastPayDate">
+<Selectivity>0.5025%</Selectivity>
+<AverageFieldSize>5</AverageFieldSize>
+</Property>
+<Property name="MinPayment">
+<Selectivity>0.5000%</Selectivity>
+<AverageFieldSize>5.92</AverageFieldSize>
+</Property>
+<Property name="Name">
+<Selectivity>0.5076%</Selectivity>
+<AverageFieldSize>17.22</AverageFieldSize>
+</Property>
+<Property name="NetDays">
+<Selectivity>0.5618%</Selectivity>
+<AverageFieldSize>2.86</AverageFieldSize>
+</Property>
+<Property name="PayFlag">
+<Selectivity>50.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="TaxReporting">
+<Selectivity>50.0000%</Selectivity>
+<AverageFieldSize>.54</AverageFieldSize>
+</Property>
+<SQLMap name="DataMasterMap">
+<Type>data</Type>
+<Global>^Sample.DataD</Global>
+<Structure>list</Structure>
+<BlockCount>-16</BlockCount>
+<Subscript name="1">
+<Expression>{Vendor}</Expression>
+</Subscript>
+<Data name="Address">
+<Piece>2</Piece>
+</Data>
+<Data name="Balance">
+<Node>1</Node>
+<Piece>3</Piece>
+</Data>
+<Data name="Contact">
+<Piece>3</Piece>
+</Data>
+<Data name="DaysClear">
+<Piece>7</Piece>
+</Data>
+<Data name="DiscDays">
+<Piece>5</Piece>
+</Data>
+<Data name="DiscRate">
+<Piece>4</Piece>
+</Data>
+<Data name="LastInvDate">
+<Node>1</Node>
+<Piece>1</Piece>
+</Data>
+<Data name="LastPayDate">
+<Node>1</Node>
+<Piece>2</Piece>
+</Data>
+<Data name="MinPayment">
+<Piece>9</Piece>
+</Data>
+<Data name="Name">
+<Piece>1</Piece>
+</Data>
+<Data name="NetDays">
+<Piece>6</Piece>
+</Data>
+<Data name="PayFlag">
+<Piece>8</Piece>
+</Data>
+<Data name="TaxReporting">
+<Piece>10</Piece>
+</Data>
+</SQLMap>
+<SQLMap name="IndexNName">
+<Type>index</Type>
+<Global>^Sample.VendorI</Global>
+<Structure>list</Structure>
+<BlockCount>-4</BlockCount>
+<Subscript name="1">
+<Expression>"N"</Expression>
+</Subscript>
+<Subscript name="2">
+<Expression>$$SQLUPPER({Name})</Expression>
+</Subscript>
+<Subscript name="3">
+<Expression>{Vendor}</Expression>
+</Subscript>
+</SQLMap>
+</Storage>
+</Class>
+
+
+</Export>
