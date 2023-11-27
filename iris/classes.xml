@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="IRIS" version="26" zv="IRIS for Windows (x86-64) 2023.2 (Build 227U)" ts="2023-11-27 07:54:09">
+<Export generator="IRIS" version="26" zv="IRIS for Windows (x86-64) 2023.2 (Build 227U)" ts="2023-11-27 08:15:48">
 <Class name="Sample.Address">
 <Description>
 Use or operation of this code is subject to acceptance of the license available in the code repository for this code.
@@ -642,7 +642,7 @@ ORDER BY Name</SqlQuery>
 
 <Class name="Sample.Report">
 <Abstract>1</Abstract>
-<TimeChanged>66805,28418.0133065</TimeChanged>
+<TimeChanged>66805,29303.6867581</TimeChanged>
 <TimeCreated>66792,55450.8150977</TimeCreated>
 
 <Method name="GenerateReport">
@@ -654,9 +654,14 @@ d ##class(Sample.Report).GenerateReport()</Description>
 	Try{
 		#;Setup your classpath
 		Set ClassPath=##class(%ListOfDataTypes).%New()
-		d ClassPath.Insert("C:\IRIS\CSP\user\pdf\lib\gson-2.8.2.jar")
-		d ClassPath.Insert("C:\IRIS\CSP\user\pdf\lib\openpdf-1.3.32.jar")
-		d ClassPath.Insert("C:\IRIS\CSP\user\pdf\")
+		Do ClassPath.Insert("C:\javatest\lib\gson-2.8.2.jar")
+		Do ClassPath.Insert("C:\javatest\lib\openpdf-1.3.32.jar")
+		Do ClassPath.Insert("C:\javatest\")
+		Set File=##class(%Stream.FileBinary).%New()
+		Set sc=File.LinkToFile("C:\javatest\sample.pdf")
+		Set host="127.0.0.1"
+		Set port=12345
+		Set serviceName="testpackage.ExampleOpenPdf"
 		
 		Set PdfData={}
 		Set PdfData.Companies=[]
@@ -693,18 +698,16 @@ d ##class(Sample.Report).GenerateReport()</Description>
 		
 		//w PdfData.%ToJSON()
 		
-		s Response = ##class(%Net.Remote.Java.JavaGateway).%RemoteService("127.0.0.1"
-			,12345,"test.test.ExampleOpenPdf"
+		s Response = ##class(%Net.Remote.Java.JavaGateway).%RemoteService(host
+			,port,serviceName
 			,PdfData.%ToJSON()
 			,ClassPath)
 			
 		//Write Write the PDF to a file
-		if ($E(Response,1,10)["PDF"){
-			/*Set File=##class(%Stream.FileBinary).%New()
-			Set sc=File.LinkToFile("C:\IRIS\CSP\user\sample.pdf")
+		if ($E(Response,1,10)["PDF"){			
 			Do File.Write(Response)
 			Do File.%Save()
-			Set File=""*/
+			Set File=""
 			Write "PDF generated",!
 		} else {
 			Write Response,!
